@@ -1,0 +1,11 @@
+{
+  "name": "challenge-coveo",
+  "version": "1.0.0",
+  "description": "Challenge back-end de Coveo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yonni Chen",
+  "license": "Apache-2.0"
+}

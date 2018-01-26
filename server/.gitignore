@@ -1,0 +1,8 @@
+# Exclusion des dépendances Node
+node_modules/
+
+# Exclusion des fichiers Javascripts compilés
+bin/
+
+# NPM Debug Log
+npm-debug.log
