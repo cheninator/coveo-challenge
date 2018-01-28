@@ -1,3 +1,11 @@
+/*
+ * Copyright (C) 2018 Yonni Chen
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as http from 'http';
@@ -7,25 +15,37 @@ import * as logger from 'morgan';
 import * as path from 'path';
 import * as cors from 'cors';
 
-import { ApiRoutes } from './routes';
+import { inject, injectable } from 'inversify';
+import { IRoutes } from './routes';
+import Types from './types';
 
+/*
+ * Defines a server web application. 
+ * Encapsulates an Express application, configure middlewares, routes
+ * errors, etc.
+ */
+@injectable()
 export class Server {
 
     private readonly port_: number | string | boolean;
-    private readonly apiRoutes_: ApiRoutes;
+    private readonly apiRoutes_: IRoutes;
     private readonly internalError = 500;
 
     private httpServer_: http.Server;
     private express_: express.Application;
 
-    constructor(port : number | string) {
-        this.port_ = this.normalizePort(process.env.PORT || port);
-        this.apiRoutes_ = new ApiRoutes();
+    constructor(@inject(Types.Routes) routes: IRoutes) {
+        this.port_ = this.normalizePort(process.env.PORT || "3000");
+        this.apiRoutes_ = routes;
         this.init();
     }
 
     get app(): express.Application {
         return this.express_;
+    }
+
+    get port(): number | string | boolean {
+        return this.port_;
     }
 
     private init(): void {
@@ -45,6 +65,7 @@ export class Server {
 
     private configureRoutes() {
         const router = express.Router();
+        console.log("ROUTES");
         router.use(this.apiRoutes_.routes);
         this.express_.use(router);
         this.errorHandeling();

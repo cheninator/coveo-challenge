@@ -1,21 +1,29 @@
+/*
+ * Copyright (C) 2018 Yonni Chen
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ */
+
+import { container } from './inversify.config';
 import { Server } from './server';
+import Types from './types';
 import * as http from 'http';
 
-const port = "3000";
-let server = new Server(port);
-
+let server = container.get<Server>(Types.Server);
 
 let httpServer: http.Server;
 httpServer = http.createServer(server.app);
 
-httpServer.listen(port);
+httpServer.listen(server.port);
 
 httpServer.on("error", (error: NodeJS.ErrnoException) => {
     if (error.syscall !== "listen") { 
         throw error; 
     }
     
-    let bind = (typeof port === "string") ? "Pipe " + port : "Port " + port;
+    let bind = (typeof server.port === "string") ? "Pipe " + server.port : "Port " + server.port;
     
     switch (error.code) {
         case "EACCES":
