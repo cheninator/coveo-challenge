@@ -7,7 +7,7 @@
  */
 
 import { Request, Response, NextFunction } from "express";
-import { City } from './../models/city';
+import { City } from './../../../common/models/city';
 import { injectable } from 'inversify';
 import { cities } from './../database/db';
 import { Promise } from "mongoose";

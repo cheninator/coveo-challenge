@@ -10,3 +10,6 @@ git clone https://github.com/cheninator/coveo-challenge
 cd coveo-challenge/server
 npm install && npm start
 ```
+
+# Using local MongoDB
+By default, the server will connect to mLab
