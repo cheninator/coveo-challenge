@@ -5,6 +5,10 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { SuggestionService } from './suggestion.service';
 
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -12,7 +16,11 @@ import { SuggestionService } from './suggestion.service';
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    BrowserAnimationsModule,
+    HttpModule,
+    MatInputModule,
+    MatCardModule,
+    MatGridListModule
   ],
   providers: [
     SuggestionService

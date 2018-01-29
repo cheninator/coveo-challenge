@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SuggestionService } from './suggestion.service';
 import { City } from './../../../common/models/city';
 
@@ -7,7 +7,7 @@ import { City } from './../../../common/models/city';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnChanges {
+export class AppComponent implements OnInit {
   
   private searchTerm: string;
   private cities: City[];
@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+  searchTermChanged(event: any): void {
+    console.log(this.searchTerm);
   }
 }
