@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { SuggestionService } from './suggestion.service';
 
 
 @NgModule({
@@ -12,7 +13,9 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    SuggestionService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
