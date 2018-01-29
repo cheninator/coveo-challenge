@@ -13,3 +13,5 @@ npm install && npm start
 
 # Using local MongoDB
 By default, the server will connect to mLab
+
+mongoimport -h ds117878.mlab.com:17878 -d challenge-coveo -c cities -u test -p test123! --file data.json --jsonArray

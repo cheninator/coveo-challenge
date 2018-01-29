@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { SuggestionService } from './suggestion.service';
@@ -11,7 +11,8 @@ import { SuggestionService } from './suggestion.service';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpModule
   ],
   providers: [
     SuggestionService

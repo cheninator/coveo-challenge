@@ -35,6 +35,7 @@ export class SuggestionService implements ISuggestionService {
 
         let latitude = req.query['latitude'];
         let longitude = req.query['longitude'];
+        let isLocationAvailable = (latitude !== undefined && longitude !== undefined);
 
         cities.find({
             $text : {
@@ -44,12 +45,13 @@ export class SuggestionService implements ISuggestionService {
         .then((results: any[]) => {
             let response: City[] = new Array();
             for (let result of results) {
+                let distance = isLocationAvailable ? this.calculateDistance(latitude, longitude, result.latitude, result.longitude) : -1;
                 response.push(<City> {
                     name: result.name,
                     latitude: result.latitude,
                     longitude: result.longitude,
-                    score: 0
-                })
+                    score: this.calculateConfidence(q, name, distance)
+                });
             }
             res.json(response);
         })
@@ -72,7 +74,11 @@ export class SuggestionService implements ISuggestionService {
         return dis;
     }
 
-    private calculateConfidence(searchTerm: string, name: string): number {
-        return 0;
+    private calculateConfidence(searchTerm: string, name: string, distance: number): number {
+
+        if (distance != -1) {
+            
+        }
+        return searchTerm.length / name.length;
     }
 }
