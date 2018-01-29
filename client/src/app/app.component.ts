@@ -27,6 +27,9 @@ export class AppComponent {
                     this.latitude = position.coords.latitude;
                     this.longitude = position.coords.longitude;
                     this.searchTermChanged();
+                },
+                (error) => {
+                    console.log(error.message);
                 });
             } else {
                 alert("Geolocation is not supported by this browser.");
