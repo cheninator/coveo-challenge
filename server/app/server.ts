@@ -21,8 +21,7 @@ import Types from './types';
 
 /*
  * Defines a server web application. 
- * Encapsulates an Express application, configure middlewares, routes
- * errors, etc.
+ * Encapsulates an Express application, configure middlewares, routes, errors, etc.
  */
 @injectable()
 export class Server {
