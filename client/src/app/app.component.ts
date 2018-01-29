@@ -16,7 +16,7 @@ export class AppComponent {
     private longitude?: number;
     
     constructor(private suggestionService_: SuggestionService) {
-        this.searchTerm = "";
+        this.searchTerm = "";   
         this.isLocationActivated = false;
     }
     

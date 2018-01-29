@@ -35,7 +35,6 @@ export class SuggestionService implements ISuggestionService {
 
         let latitude = req.query['latitude'];
         let longitude = req.query['longitude'];
-        let isLocationAvailable = (latitude !== undefined && longitude !== undefined);
 
         cities.find({
             $text : {
@@ -43,17 +42,16 @@ export class SuggestionService implements ISuggestionService {
             }
         })
         .then((results: any[]) => {
-            let response: City[] = new Array();
+            let cities: City[] = new Array();
             for (let result of results) {
-                let distance = isLocationAvailable ? this.calculateDistance(latitude, longitude, result.latitude, result.longitude) : -1;
-                response.push(<City> {
+                cities.push(<City> {
                     name: result.name,
                     latitude: result.latitude,
                     longitude: result.longitude,
-                    score: this.calculateConfidence(q, name, distance)
+                    score: 1.0
                 });
             }
-            res.json(response);
+            res.json(this.calculateConfidence(cities, q, latitude, longitude));
         })
         .catch((reason: any)=>{
             console.log(reason);
@@ -74,11 +72,23 @@ export class SuggestionService implements ISuggestionService {
         return dis;
     }
 
-    private calculateConfidence(searchTerm: string, name: string, distance: number): number {
-
-        if (distance != -1) {
-            
+    private calculateConfidence(cities: City[], searchTerm: string, latitude?: number, longitude?: number): City[] {
+        // No geolocation information
+        for (let city of cities) {
+            city.score *= searchTerm.length / city.name.length;
         }
-        return searchTerm.length / name.length;
+
+        // Descending sort by score
+        cities.sort((c1, c2) => {
+            if (c1.score < c2.score) {
+                return 1;
+            }
+            if (c1.score > c2.score) {
+                return -1;
+            }
+            return 0;
+        })
+
+        return cities;
     }
 }

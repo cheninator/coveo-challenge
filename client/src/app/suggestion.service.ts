@@ -31,6 +31,7 @@ export class SuggestionService {
         return this.http.get(this.baseUrl, options)
             .toPromise()
             .then((res) => {
+                console.log(res.json());
                 return <City[]>res.json();
             });
     }
