@@ -74,10 +74,23 @@ export class SuggestionService implements ISuggestionService {
 
     private calculateConfidence(cities: City[], searchTerm: string, latitude?: number, longitude?: number): City[] {
         // No geolocation information
-        for (let city of cities) {
-            city.score *= searchTerm.length / city.name.length;
+        if (latitude === undefined && longitude === undefined) {
+            for (let city of cities) {
+                city.score *= searchTerm.length / city.name.length;
+            }
         }
-
+        else {
+            let maxDistance = 0;
+            for (let city of cities) {
+                let distance = this.calculateDistance(latitude, longitude, city.latitude, city.longitude);
+                maxDistance = Math.max(maxDistance, distance);
+            }
+            for (let city of cities) {
+                let distance = this.calculateDistance(latitude, longitude, city.latitude, city.longitude);
+                city.score = (maxDistance - distance) / maxDistance;
+            }
+        }
+        
         // Descending sort by score
         cities.sort((c1, c2) => {
             if (c1.score < c2.score) {
@@ -88,7 +101,6 @@ export class SuggestionService implements ISuggestionService {
             }
             return 0;
         })
-
         return cities;
     }
 }

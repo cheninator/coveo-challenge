@@ -4,8 +4,8 @@
     "description": "Challenge back-end de Coveo",
     "scripts": {
         "clean": "rimraf bin",
-        "clean:modules": "rimraf node_modules",        
-        "start": "tsc && concurrently --kill-others \"tsc -w \" \"nodemon bin/www.js\" ",
+        "clean:modules": "rimraf node_modules",
+        "start": "tsc && concurrently --kill-others \"tsc -w \" \"nodemon bin/server/app/www.js\" ",
         "test": "echo \"Error: no test specified\" && exit 1",
         "tsc": "tsc"
     },

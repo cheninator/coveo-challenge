@@ -9,7 +9,7 @@
             <p>Search for a city</p>
             <input matInput (keyup)="searchTermChanged($event)" (input)="searchTerm = $event.target.value" [value]="searchTerm" type="text"/>
         </mat-form-field>
-        <mat-checkbox class="example-margin" [(ngModel)]="isLocationActivated" (ngModelChange)="activateLocation($event)">Use my current location</mat-checkbox>
+        <mat-checkbox [(ngModel)]="isLocationActivated" (ngModelChange)="activateLocation($event)">Use my current location</mat-checkbox>
     </mat-card-content>
 </mat-card>
 

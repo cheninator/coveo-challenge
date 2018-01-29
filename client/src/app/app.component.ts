@@ -20,7 +20,7 @@ export class AppComponent {
         this.isLocationActivated = false;
     }
     
-    public activateLocation(event: Event) {
+    public activateLocation(event: any) {
         if (this.isLocationActivated) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
@@ -41,7 +41,7 @@ export class AppComponent {
         }
     }
     
-    public searchTermChanged(event?: Event): void {
+    public searchTermChanged(event?: any): void {
         // Make sure that user finished to type. We don't want to spam the server for every key stroke...
         setTimeout(() => {
             this.suggestionService_.getSuggestions(this.searchTerm, this.latitude, this.longitude).then((result) => {
