@@ -9,6 +9,7 @@
 import { Request, Response, NextFunction } from "express";
 import { City } from './../models/city';
 import { injectable } from 'inversify';
+import { cities } from './../database/db';
 
 /*
  * 
@@ -30,6 +31,39 @@ export class SuggestionService implements ISuggestionService {
         let latitude = req.query['latitude'];
         let longitude = req.query['longitude'];
 
-        return new Array();
+        cities.find({
+            $text : {
+                $search : q
+            }
+        })
+        .then((results: any[]) => {
+            let response: City[] = new Array();
+            for (let result of results) {
+                response.push(<City> {
+                    name: result.name,
+                    latitude: result.latitude,
+                    longitude: result.longitude,
+                    score: 0
+                })
+            }
+            res.json(response);
+        })
+        .catch((reason: any)=>{
+            console.log(reason);
+            res.send(500);
+        });
+    }
+
+    /*
+     * Calculates the distance between two latitude-longitude points. Taken from :
+     * 
+     * https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
+     */
+    private calculateDistance(lat1: number, long1: number, lat2: number, long2: number): number {
+        let p = Math.PI / 180;    
+        let c = Math.cos;
+        let a = 0.5 - c((lat1 - lat2) * p) / 2 + c(lat2 * p) * c((lat1) * p) * (1 - c(((long1 - long2) * p))) / 2;
+        let dis = (12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
+        return dis;
     }
 }

@@ -65,7 +65,6 @@ export class Server {
 
     private configureRoutes() {
         const router = express.Router();
-        console.log("ROUTES");
         router.use(this.apiRoutes_.routes);
         this.express_.use(router);
         this.errorHandeling();
