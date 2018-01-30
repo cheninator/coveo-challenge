@@ -5,3 +5,7 @@
 .result {
     margin-top: 25px;
 }
+
+.block {
+    display: inline-block;
+}

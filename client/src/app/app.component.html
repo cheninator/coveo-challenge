@@ -14,12 +14,11 @@
 </mat-card>
 
 <div class="result">
-    <mat-grid-list cols="6" rowHeight="50px">
-        <mat-grid-tile *ngFor="let city of cities"
-        [colspan]="1" 
-        [rowspan]="1">
-        {{city.name}} 
-        {{city.score}}
-    </mat-grid-tile>
-</mat-grid-list>
+    <mat-grid-list cols="5" rowHeight="150px">
+        <mat-grid-tile *ngFor="let city of cities" [colspan]="1" [rowspan]="1">
+            <h1>{{city.name}}</h1>
+            <p>Latitude: {{city.latitude}}</p>
+            <p>Longitude: {{city.longitude}}</p>
+        </mat-grid-tile>
+    </mat-grid-list>
 </div>
